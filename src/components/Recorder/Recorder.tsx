@@ -4,7 +4,7 @@ import { selectDateStart, start, stop } from '../../redux/recorder';
 import cx from 'classnames';
 import './Recorder.css';
 
-const addZero = (num: number) => (num < 10 ? `0${num}` : num.toString());
+export const addZero = (num: number) => (num < 10 ? `0${num}` : num.toString());
 
 function Recorder() {
 	const dispatch = useDispatch();
