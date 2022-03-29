@@ -4,6 +4,7 @@ import { RootState } from '../../redux/store';
 import { selectUserEventsArray, loadUserEvents, UserEvent } from '../../redux/user-events';
 import { addZero } from '../Recorder/Recorder';
 import './Calendar.css';
+import EventItem from './EventItem';
 
 const mapState = (state: RootState) => ({
 	events: selectUserEventsArray(state),
@@ -60,7 +61,7 @@ const Calendar: React.FC<Props> = ({ events, loadUserEvents }) => {
 
 	if (events.length) {
 		groupedEvents = groupEventsByDay(events);
-		sortedGroupKeys = Object.keys(groupedEvents).sort((d1, d2) => +new Date(d1) - +new Date(d2));
+		sortedGroupKeys = Object.keys(groupedEvents).sort((d1, d2) => +new Date(d2) - +new Date(d1));
 	}
 
 	return groupedEvents && sortedGroupKeys ? (
@@ -79,15 +80,7 @@ const Calendar: React.FC<Props> = ({ events, loadUserEvents }) => {
 						</div>
 						<div className='calendar-events'>
 							{events.map(event => {
-								return (
-									<div key={event.id} className='calendar-event'>
-										<div className='calendar-event-info'>
-											<div className='calendar-event-time'>10:00 - 12:00</div>
-											<div className='calendar-event-title'>{event.title}</div>
-										</div>
-										<button className='calendar-event-delete-button'>X</button>
-									</div>
-								);
+								return <EventItem event={event} key={`event${event.id}`} />;
 							})}
 						</div>
 					</div>
